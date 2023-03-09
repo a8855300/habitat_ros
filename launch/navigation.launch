@@ -1,10 +1,16 @@
 <launch>
   <!-- gmapping -->
-  <node pkg="gmapping" type="slam_gmapping" name="gmapping_thing" output="screen" >
+  <!-- <node pkg="gmapping" type="slam_gmapping" name="gmapping_thing" output="screen" >
     <remap from="scan" to="scan" />
     <remap from="base_link" to="base_footprint" />
     <remap from="odom" to="odom" />
-  </node>
+  </node> -->
+
+  <!-- load map -->
+  <node pkg="map_server" type="map_server" name="load_map" output="screen" args="/home/ariel/map.yaml"/>  
+  
+  <!-- generate odom tf -->
+  <node pkg="tf" type="static_transform_publisher" name="generate_odom_tf" output="screen" args="0 0 0 0 0 0 map odom 100"/>  
 
   <include file="$(find navigation)/launch/move_base_gmapping.launch">
   </include>
